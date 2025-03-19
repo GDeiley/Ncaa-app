@@ -114,3 +114,4 @@ resource "aws_instance" "new_instance" {
 output "ssh_connect_line" {
   value = "ssh -i id_rsa ubuntu@${aws_instance.new_instance.public_ip}"
 } 
+//test
