@@ -3,7 +3,7 @@
 #     Create a VPC with a CIDR block (e.g., 10.0.0.0/16).
 #     Create a public subnet within the VPC (e.g., 10.0.1.0/24).
 #     Add an Internet Gateway and attach it to the VPC.
-#     Create a route table and a route to the Internet Gateway.
+#     Create a route table and a route to the Internet Gatesway.
 # updatessdfsasd
 
 terraform {
