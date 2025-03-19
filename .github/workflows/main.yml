@@ -3,7 +3,7 @@ name: Instance_Creation
 on:
   push:
     branches:
-      - GraysonsBranch
+      - main
     paths:
       - 'NCAA-Type-KanesBranch/terraform/instance.tf'
 
