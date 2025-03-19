@@ -1,0 +1,36 @@
+name: Instance_Creation
+
+on:
+  push:
+    branches:
+      - GraysonsBranch
+    paths:
+      - 'NCAA-Type-KanesBranch/terraform/instance.tf'
+
+jobs:
+  builds:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: latest
+
+      - name: Terraform Initialize
+        run: terraform init
+        working-directory: terraform
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: terraform
+
+      - name: Terraform Apply
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          terraform apply -var "ssh_key=${{ secrets.SSH_PRIVATE_KEY }}" -auto-approve
+        working-directory: terraform
