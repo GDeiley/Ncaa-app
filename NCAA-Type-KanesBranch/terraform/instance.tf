@@ -87,7 +87,12 @@ name = "terraform_security_group"
         Name = "terraform_security_group"
     }
 }
-    
+
+variable "ssh_key" {
+  description = "SSH key to add to the instance"
+  type        = string
+}
+
 
  
 resource "aws_instance" "new_instance" {
@@ -98,7 +103,7 @@ resource "aws_instance" "new_instance" {
 
     user_data = <<-EOF
               #!/bin/bash
-              echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvTPVuWj8kzsdSF6Giew2zDU3raAnaUd73b0UwelqVsYC9QF3LKzRei6u99bLbvV7wbAcf9Tbt+7khY8Hm9wkIxB5b2C/vHGR+E+lQzSxyfjD4Azrdwx1E+8h3LVUo+UentLh08L3Prr+MlsmrpkvP2DwpmsB7sT/+czXs/4HQPQA34jEyOz1CRvv9DDxxyuHzME9hwt5o4sjHs6QTNiVCSLXWI2SqW8RoL9N6I0/414vsFk0HyGKqj+MwnD0Z+Z0HhHQn5KCsT+qrgNMvZUR5uh5LP2s3GuBD/d4z3EHvZO9q9BlG9x4y38yfBC7YyAtjRi2HodLRFXjhppo4bkGoCSHcRG5V2MtuhI2t7LQ/u/H236qi0ZTADZrOzNISIYNJF/yagQlJMnVzifun4K4nWmh9rMdjKI1nrRULaHEbefemCoEqGeve+VnxACt/uvxQ2QFNCj5PuAe9YthE/pkzgHiDAPH+CcOb+Ginj/DPUkutIpXt0FtAPm4IYPJcZ+eOE5vsoUiPZ7mP6l7s6raebXaIEICYvo3g0BpNHotGP41Uit7oui61cHh9IbSbunpsGy12tJNISQ4ykgsVO3k7ypsDvaiaD8HbXN5Ok2PDxMJSXyA95vpCf6wccUv9+7CELghBEP2XuqEyFnlK0fRFRdkuaNR0jeA6ycqJStkgFw== graysondeiley@Graysons-Laptop.local" >> /home/ubuntu/.ssh/authorized_keys
+               echo "${var.ssh_key}" >> /home/ubuntu/.ssh/authorized_keys
               EOF
 
     tags = {
