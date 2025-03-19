@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'NCAA-Type-KanesBranch/terraform/instance.tf'
+      - '**/terraform/instance.tf'
 
 jobs:
   builds:
@@ -22,25 +22,15 @@ jobs:
 
       - name: Terraform Initialize
         run: terraform init
-        working-directory: NCAA-Type-KanesBranch/terraform
+        working-directory: terraform
 
       - name: Terraform Plan
         run: terraform plan
-        working-directory: NCAA-Type-KanesBranch/terraform
+        working-directory: terraform
 
       - name: Terraform Apply
         env:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           terraform apply -var "ssh_key=${{ secrets.SSH_PRIVATE_KEY }}" -auto-approve
-        working-directory: NCAA-Type-KanesBranch/terraform
-
-      - name: Sleep
-        sleep: 600
-
-      - name: Terraform Destroy
-        env:
-          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          terraform destory -var "ssh_key=${{ secrets.SSH_PRIVATE_KEY }}" -auto-approve
-        working-directory: NCAA-Type-KanesBranch/terraform
+        working-directory: terraform
