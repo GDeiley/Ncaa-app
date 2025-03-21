@@ -4,7 +4,7 @@
 #     Create a public subnet within the VPC (e.g., 10.0.1.0/24).
 #     Add an Internet Gateway and attach it to the VPC.
 #     Create a route table and a route to the Internet Gatesway.
-# updatessdfsasdassss
+# updatessdfsasdassssd
 
 terraform {
     required_providers {
