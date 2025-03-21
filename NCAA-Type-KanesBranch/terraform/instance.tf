@@ -125,22 +125,25 @@ resource "aws_instance" "new_instance" {
     subnet_id = aws_subnet.new_subnet.id
     vpc_security_group_ids = [aws_security_group.terraform_security_group.id]
 
-    user_data = <<-EOF
+      user_data = <<-EOF
               #!/bin/bash
-               echo "${var.ssh_key}" >> /home/ubuntu/.ssh/authorized_keys
+              # Add the SSH key to authorized_keys for user ubuntu
+              echo "${var.ssh_key}" >> /home/ubuntu/.ssh/authorized_keys
 
               # Update the instance
               sudo apt-get update -y
               sudo apt-get upgrade -y
 
+              # Clone the Git repository
+              cd /home/ubuntu
               sudo git clone https://github.com/GDeiley/Ncaa-app.git
 
               # Install Node.js and npm
-              sudo cd /home/ubuntu/Ncaa-app/NCAA-Type-KanesBranch
-              sudo curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+              cd /home/ubuntu/Ncaa-app/NCAA-Type-KanesBranch
+              curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
               sudo apt-get install -y nodejs
 
-              # Install any necessary npm packages
+              # Install the project dependencies using npm
               sudo npm install
 
               EOF
