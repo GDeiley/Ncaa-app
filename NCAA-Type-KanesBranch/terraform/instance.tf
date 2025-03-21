@@ -121,7 +121,7 @@ variable "ssh_key" {
  
 resource "aws_instance" "new_instance" {
     ami           = "ami-011899242bb902164"  # Ensure this AMI ID is valid for the region and is a suitable base image
-    instance_type = "t2.micro"
+    instance_type = "t3.micro"
     subnet_id = aws_subnet.new_subnet.id
     vpc_security_group_ids = [aws_security_group.terraform_security_group.id]
 
@@ -140,8 +140,8 @@ resource "aws_instance" "new_instance" {
 
               # Install Node.js and npm
               cd /home/ubuntu/Ncaa-app/NCAA-Type-KanesBranch
-              curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-              sudo apt-get install -y nodejs
+              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+              sudo apt install -y nodejs
 
               # Install the project dependencies using npm
               sudo npm install
