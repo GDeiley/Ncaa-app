@@ -73,8 +73,32 @@ name = "terraform_security_group"
         from_port = 22
         to_port = 22
         protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"],
+    }
+    # Example: Allow HTTP traffic (port 80)
+    ingress {
+        from_port   = 80
+        to_port     = 80
+        protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+
+# Example: Allow HTTPS traffic (port 443)
+    ingress {
+        from_port   = 443
+        to_port     = 443
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+# Example: Allow Next.js dev server (port 3000)
+    ingress {
+        from_port   = 3000
+        to_port     = 3000
+        protocol    = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
 
     egress {
         from_port = 0
@@ -104,6 +128,21 @@ resource "aws_instance" "new_instance" {
     user_data = <<-EOF
               #!/bin/bash
                echo "${var.ssh_key}" >> /home/ubuntu/.ssh/authorized_keys
+
+              # Update the instance
+              sudo apt-get update -y
+              sudo apt-get upgrade -y
+
+              sudo git clone https://github.com/GDeiley/Ncaa-app.git
+
+              # Install Node.js and npm
+              sudo cd /home/ubuntu/Ncaa-app/NCAA-Type-KanesBranch
+              sudo curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+              sudo apt-get install -y nodejs
+
+              # Install any necessary npm packages
+              sudo npm install
+
               EOF
 
     tags = {
