@@ -121,7 +121,7 @@ variable "ssh_key" {
  
 resource "aws_instance" "new_instance" {
     ami           = "ami-011899242bb902164"  # Ensure this AMI ID is valid for the region and is a suitable base image
-    instance_type = "t3.micro"
+    instance_type = "t2.small"
     subnet_id = aws_subnet.new_subnet.id
     vpc_security_group_ids = [aws_security_group.terraform_security_group.id]
 
