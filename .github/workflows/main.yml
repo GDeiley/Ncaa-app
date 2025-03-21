@@ -33,25 +33,25 @@ jobs:
         working-directory: NCAA-Type-KanesBranch/terraform
         
 
-      # - name: Terraform Plan
-      #   run: terraform plan -var "ssh_key=${{ secrets.SSH_PRIVATE_KEY }}" -input=false
-      #   working-directory: NCAA-Type-KanesBranch/terraform
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_REGION: us-east-1
+      - name: Terraform Plan
+        run: terraform plan -var "ssh_key=${{ secrets.SSH_PRIVATE_KEY }}" -input=false
+        working-directory: NCAA-Type-KanesBranch/terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
 
-      # - name: Terraform Apply
-      #   run: |
-      #     terraform apply -var "ssh_key=${{ secrets.SSH_PRIVATE_KEY }}" -auto-approve
-      #   working-directory: NCAA-Type-KanesBranch/terraform
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_REGION: us-east-1
+      - name: Terraform Apply
+        run: |
+          terraform apply -var "ssh_key=${{ secrets.SSH_PRIVATE_KEY }}" -auto-approve
+        working-directory: NCAA-Type-KanesBranch/terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1
 
-      # - name: Sleep
-      #   run: sleep 600
+      - name: Sleep
+        run: sleep 1200
 
       - name: Terraform Destroy
         run: |
