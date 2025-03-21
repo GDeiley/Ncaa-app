@@ -25,7 +25,7 @@ jobs:
         working-directory: NCAA-Type-KanesBranch/terraform
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -input=false
         working-directory: NCAA-Type-KanesBranch/terraform
 
       - name: Terraform Apply
