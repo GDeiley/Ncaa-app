@@ -127,6 +127,8 @@ resource "aws_instance" "new_instance" {
 
       user_data = <<-EOF
               #!/bin/bash
+              set -e  # Exit on any error
+
               # Add the SSH key to authorized_keys for user ubuntu
               echo "${var.ssh_key}" >> /home/ubuntu/.ssh/authorized_keys
 
@@ -137,16 +139,21 @@ resource "aws_instance" "new_instance" {
               # Clone the Git repository
               cd /home/ubuntu
               sudo git clone https://github.com/GDeiley/Ncaa-app.git
+              
+              # Install NVM (Node Version Manager)
+              curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+              export NVM_DIR="$HOME/.nvm"
+              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-              # Install Node.js and npm
-              cd /home/ubuntu/Ncaa-app/NCAA-Type-KanesBranch
-              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-              sudo apt install -y nodejs
+              # Install Node.js v23.10.0
+              nvm install 23.10.0
+              nvm use 23.10.0
+              nvm alias default 23.10.0
 
               # Install the project dependencies using npm
-              sudo npm install
-
-              EOF
+              cd /home/ubuntu/Ncaa-app/NCAA-Type-KanesBranch
+              npm install
+                EOF
 
     tags = {
         Name = "new_instance"
